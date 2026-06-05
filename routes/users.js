@@ -31,6 +31,48 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+// Get a user's calculated achievements matrix
+// GET /api/users/:id/achievements
+
+router.get("/:id/achievements", async (req, res) => {
+  try {
+    const userResult = await pgclient.query(
+      "SELECT currentlevel, coincollected, completedlevel FROM users WHERE id = $1",
+      [req.params.id],
+    );
+    if (userResult.rows.length === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const user = userResult.rows[0];
+
+    const achievementsResult = await pgclient.query(
+      "SELECT * FROM achievements ORDER BY requirement_value ASC",
+    );
+    const staticAchievements = achievementsResult.rows;
+
+    const dynamicAchievements = staticAchievements.map((ach) => {
+      let currentProgressValue = 0;
+
+      if (ach.requirement_type === "completedlevel")
+        currentProgressValue = user.completedlevel;
+      if (ach.requirement_type === "coincollected")
+        currentProgressValue = user.coincollected;
+      if (ach.requirement_type === "currentlevel")
+        currentProgressValue = user.currentlevel;
+
+      return {
+        id: ach.id,
+        title: ach.title,
+        description: ach.description,
+        isUnlocked: currentProgressValue >= parseInt(ach.requirement_value),
+      };
+    });
+
+    res.json(dynamicAchievements);
+  } catch (err) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 // Update a user
 // PUT /api/users/:id
