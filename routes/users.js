@@ -31,6 +31,7 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
 // Get a user's calculated achievements matrix
 // GET /api/users/:id/achievements
 
@@ -53,23 +54,26 @@ router.get("/:id/achievements", async (req, res) => {
     const dynamicAchievements = staticAchievements.map((ach) => {
       let currentProgressValue = 0;
 
+      // Safe fallback protections handling potential null values
       if (ach.requirement_type === "completedlevel")
-        currentProgressValue = user.completedlevel;
+        currentProgressValue = user.completedlevel || 0;
       if (ach.requirement_type === "coincollected")
-        currentProgressValue = user.coincollected;
+        currentProgressValue = user.coincollected || 0;
       if (ach.requirement_type === "currentlevel")
-        currentProgressValue = user.currentlevel;
+        currentProgressValue = user.currentlevel || 1;
 
       return {
         id: ach.id,
         title: ach.title,
         description: ach.description,
-        isUnlocked: currentProgressValue >= parseInt(ach.requirement_value),
+        isUnlocked:
+          currentProgressValue >= parseInt(ach.requirement_value || 0),
       };
     });
 
     res.json(dynamicAchievements);
   } catch (err) {
+    console.error("Achievements processing error:", err); // Keep this to trace unexpected database hiccups!
     res.status(500).json({ error: "Internal server error" });
   }
 });
