@@ -58,7 +58,7 @@ router.put("/:id/progress", async (req, res) => {
   const { resetProgress } = req.body;
   try {
     const result = await pgclient.query(
-      "UPDATE users SET coincollected = 0, currentlevel = 1 WHERE id = $1 RETURNING *",
+      "UPDATE users SET coincollected = 0, currentlevel = 1, completedlevel = 0 WHERE id = $1 RETURNING *",
       [req.params.id],
     );
 
@@ -67,6 +67,35 @@ router.put("/:id/progress", async (req, res) => {
     }
     res.json(result.rows[0]);
   } catch (err) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Update user level progress and add newly earned coins
+// PUT /api/users/:id/win
+router.put("/:id/win", async (req, res) => {
+  const { additionalCoins, currentPlayedLevelId } = req.body;
+  const userId = req.params.id;
+
+  try {
+    const result = await pgclient.query(
+      `UPDATE users 
+       SET 
+         coincollected = coincollected + $1,
+         completedlevel = GREATEST(completedlevel, $2),
+         currentlevel = GREATEST(currentlevel, $2 + 1)
+       WHERE id = $3 
+       RETURNING *`,
+      [parseInt(additionalCoins || 0), parseInt(currentPlayedLevelId), userId],
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error("Database error in win path:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 });

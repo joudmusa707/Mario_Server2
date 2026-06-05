@@ -4,6 +4,8 @@ import morgen from "morgan";
 import dotenv from "dotenv";
 import db from "./db.js";
 import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
+import levelRoutes from "./routes/levels.js";
 
 dotenv.config();
 const server = express();
