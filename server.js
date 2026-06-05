@@ -18,6 +18,14 @@ server.use(morgen("dev"));
 //auth route
 // localhost:3000/api/auth
 server.use("/api/auth", authRoutes);
+// users route
+// localhost:3000/api/users
+server.use("/api/users", userRoutes);
+
+// levels route
+// localhost:3000/api/levels
+server.use("/api/levels", levelRoutes);
+
 // default route
 // localhost:3000/
 server.get("/", (req, res) => {
