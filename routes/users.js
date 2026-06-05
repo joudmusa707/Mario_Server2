@@ -36,11 +36,11 @@ router.get("/:id", async (req, res) => {
 // PUT /api/users/:id
 
 router.put("/:id", async (req, res) => {
-  const { name, age } = req.body;
+  const { fullname, email } = req.body;
   try {
     const result = await pgclient.query(
-      "UPDATE users SET name = $1, age = $2 WHERE id = $3 RETURNING *",
-      [name, age, req.params.id],
+      "UPDATE users SET fullname = $1, email = $2 WHERE id = $3 RETURNING *",
+      [fullname, email, req.params.id],
     );
     if (result.rows.length === 0) {
       return res.status(404).json({ message: "User not found" });
