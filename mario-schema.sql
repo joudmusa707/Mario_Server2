@@ -2,12 +2,10 @@
 -- PostgreSQL database dump
 --
 
-\restrict XbE8fQQal7Q7jHa5LfOeBAQCe07MRoD0KF7Vqp8fovbxQmZbKmw2bDG2agtEi22
+\restrict 1DRfBMK5sWNKVEc5GVSeqCDPGXqNv2zTkX9477dDX0fzei5hBgtDTkUo4KVaPro
 
 -- Dumped from database version 18.4
 -- Dumped by pg_dump version 18.4
-
--- Started on 2026-06-08 20:26:00
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -26,7 +24,6 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 223 (class 1259 OID 16446)
 -- Name: achievements; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -42,7 +39,6 @@ CREATE TABLE public.achievements (
 ALTER TABLE public.achievements OWNER TO postgres;
 
 --
--- TOC entry 221 (class 1259 OID 16430)
 -- Name: levels; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -59,7 +55,6 @@ CREATE TABLE public.levels (
 ALTER TABLE public.levels OWNER TO postgres;
 
 --
--- TOC entry 222 (class 1259 OID 16433)
 -- Name: levels_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -75,8 +70,6 @@ CREATE SEQUENCE public.levels_id_seq
 ALTER SEQUENCE public.levels_id_seq OWNER TO postgres;
 
 --
--- TOC entry 5025 (class 0 OID 0)
--- Dependencies: 222
 -- Name: levels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -84,7 +77,6 @@ ALTER SEQUENCE public.levels_id_seq OWNED BY public.levels.id;
 
 
 --
--- TOC entry 220 (class 1259 OID 16416)
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -102,7 +94,6 @@ CREATE TABLE public.users (
 ALTER TABLE public.users OWNER TO postgres;
 
 --
--- TOC entry 219 (class 1259 OID 16415)
 -- Name: users_ID_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -118,8 +109,6 @@ CREATE SEQUENCE public."users_ID_seq"
 ALTER SEQUENCE public."users_ID_seq" OWNER TO postgres;
 
 --
--- TOC entry 5026 (class 0 OID 0)
--- Dependencies: 219
 -- Name: users_ID_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -127,7 +116,6 @@ ALTER SEQUENCE public."users_ID_seq" OWNED BY public.users.id;
 
 
 --
--- TOC entry 4869 (class 2604 OID 16434)
 -- Name: levels id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -135,7 +123,6 @@ ALTER TABLE ONLY public.levels ALTER COLUMN id SET DEFAULT nextval('public.level
 
 
 --
--- TOC entry 4865 (class 2604 OID 16419)
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -143,7 +130,53 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public."users
 
 
 --
--- TOC entry 4872 (class 2606 OID 16427)
+-- Data for Name: achievements; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.achievements VALUES ('first_steps', 'First Steps', 'Complete Level 1', 'completedlevel', 1);
+INSERT INTO public.achievements VALUES ('coin_collector', 'Coin Collector', 'Collect 100 coins', 'coincollected', 100);
+INSERT INTO public.achievements VALUES ('explorer', 'Explorer', 'Complete 3 levels', 'completedlevel', 3);
+INSERT INTO public.achievements VALUES ('champion', 'Champion', 'Reach Level 5', 'currentlevel', 5);
+INSERT INTO public.achievements VALUES ('master', 'Master', 'Complete all levels', 'completedlevel', 6);
+INSERT INTO public.achievements VALUES ('wealthy', 'Wealthy', 'Collect 500 coins', 'coincollected', 500);
+
+
+--
+-- Data for Name: levels; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.levels VALUES (1, 'Mushroom Kingdom', 'Easy', 100, false, 'bg-green');
+INSERT INTO public.levels VALUES (2, 'Desert Land', 'Easy', 150, true, 'bg-orange');
+INSERT INTO public.levels VALUES (3, 'Water World', 'Medium', 200, true, 'bg-blue');
+INSERT INTO public.levels VALUES (4, 'Giant Land', 'Medium', 250, true, 'bg-purple');
+INSERT INTO public.levels VALUES (5, 'Sky World', 'Hard', 300, true, 'bg-light-blue');
+INSERT INTO public.levels VALUES (6, 'Ice Land', 'Hard', 350, true, 'bg-indigo');
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.users VALUES (6, 'OO', 'o@gmail.com', '1234', 0, 1, 0);
+INSERT INTO public.users VALUES (5, 'mario joud', 'mariojoud@gmail.com', '1234', 462, 3, 2);
+INSERT INTO public.users VALUES (7, 'yara', 'yara@gmail.com', '1234', 112, 2, 1);
+
+
+--
+-- Name: levels_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.levels_id_seq', 1, false);
+
+
+--
+-- Name: users_ID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."users_ID_seq"', 7, true);
+
+
+--
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -151,11 +184,9 @@ ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
--- Completed on 2026-06-08 20:26:00
-
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict XbE8fQQal7Q7jHa5LfOeBAQCe07MRoD0KF7Vqp8fovbxQmZbKmw2bDG2agtEi22
+\unrestrict 1DRfBMK5sWNKVEc5GVSeqCDPGXqNv2zTkX9477dDX0fzei5hBgtDTkUo4KVaPro
 
