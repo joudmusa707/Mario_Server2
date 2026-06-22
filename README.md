@@ -34,20 +34,28 @@ The system is built to satisfy the following functional player requirements:
 # 📂 Project Structure
 
 ```text
-Mario-Game-API/
-├── routes/             # Express Route Modules
-│   ├── auth.js         # Signup and login route definitions
-│   ├── users.js        # User management, wins, resets, and
-│   └── levels.js       # Game level meta configurations
-├── .env               # Local environment configurations (Secrets)
-├── .env.sample        # Template example for environment
-|
-├── db.js              # Central PostgreSQL client instantiation
-├── mario-schema.sql   # Raw PostgreSQL DDL table schemas
-|
-├── package.json       # Node.js project manifest and dependency
-|
-└── server.js          # Server initializer, global middlewares, and lifecycle listeners
+MARIO_SERVER2/
+├── node_modules/
+│
+├── routes/
+│   ├── auth.js          # Authentication routes (signup & login)
+│   ├── levels.js        # Level retrieval routes
+│   └── users.js         # User management, progress, and achievements routes
+│
+├── .env                 # Environment variables
+├── .env.sample          # Environment variables template
+├── .gitignore           # Git ignore rules
+│
+├── db.js                # PostgreSQL database connection configuration
+├── mario-schema.sql     # Database schema and initial data
+│
+├── LICENSE              # Project license
+├── README.md            # Project documentation
+│
+├── package.json         # Project metadata and dependencies
+├── package-lock.json    # Dependency lock file
+│
+└── server.js            # Express server entry point and middleware setup
 ```
 
 ---
