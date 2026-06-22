@@ -17,6 +17,7 @@ server.use(express.json());
 server.use(morgen("dev"));
 
 //Routes
+//test comment
 //auth route
 // localhost:3000/api/auth
 server.use("/api/auth", authRoutes);
